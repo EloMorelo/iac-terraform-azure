@@ -1,39 +1,26 @@
-variable "resource_group_name" {
-  type        = string
-  default     = "example-rg"
+resource "azurerm_resource_group" "rg" {
+  name     = var.resource_group_name
+  location = var.resource_group_location
 }
 
-variable "resource_group_location" {
-  type        = string
-  default     = "West Europe"
+resource "azurerm_storage_account" "sa" {
+  name                     = var.storage_account_name
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  account_tier             = var.storage_account_tier
+  account_replication_type = var.storage_account_replication_type
 }
 
-variable "storage_account_name" {
-  type        = string
-  default     = "examplestorageacct01"
+resource "azurerm_storage_container" "container" {
+  name                  = var.storage_container_name
+  storage_account_name  = azurerm_storage_account.sa.name
+  container_access_type = "private" 
 }
 
-variable "storage_account_tier" {
-  type        = string
-  default     = "Standard"
-}
-
-variable "storage_account_replication_type" {
-  type        = string
-  default     = "LRS"
-}
-
-variable "storage_container_name" {
-  type        = string
-  default     = "example-container"
-}
-
-variable "blob_name" {
-  type        = string
-  default     = "example-blob"
-}
-
-variable "blob_source" {
-  type        = string
-  default     = "output/app.zip"
+resource "azurerm_storage_blob" "blob" {
+  name                   = var.blob_name
+  storage_account_name   = azurerm_storage_account.sa.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source                 = var.blob_source
 }

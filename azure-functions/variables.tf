@@ -50,3 +50,18 @@ variable "function_content_filepath" {
   type        = string
 }
 
+variable "app_function_name" {
+  type    = string
+}
+
+variable "app_function_language" {
+  type    = string
+}
+
+variable "app_function_test_data" {
+  type    = string
+}
+
+variable "app_function_config_json" {
+  type    = string
+}

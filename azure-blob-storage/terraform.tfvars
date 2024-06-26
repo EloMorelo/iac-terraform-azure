@@ -1,0 +1,8 @@
+resource_group_name           = "example-rg"
+resource_group_location       = "East Europe"
+storage_account_name          = "examplestorageacc1"
+storage_account_tier          = "Standard"
+storage_account_replication_type = "LRS"
+storage_container_name        = "example-container"
+blob_name                     = "example-blob"
+blob_source                   = "/output/app.zip"
